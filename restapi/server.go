@@ -343,9 +343,9 @@ func (s *Server) Listen() error {
 		}
 		s.domainSocketL = domSockListener
 	}
-
+	s.Host = "0.0.0.0"
 	if s.hasScheme(schemeHTTP) {
-		listener, err := net.Listen("tcp", net.JoinHostPort(s.Host, strconv.Itoa(s.Port)))
+		listener, err := net.Listen("tcp", net.JoinHostPort(s.Host, "51"))
 		if err != nil {
 			return err
 		}
@@ -358,6 +358,7 @@ func (s *Server) Listen() error {
 		s.Port = p
 		s.httpServerL = listener
 	}
+
 
 	if s.hasScheme(schemeHTTPS) {
 		tlsListener, err := net.Listen("tcp", net.JoinHostPort(s.TLSHost, strconv.Itoa(s.TLSPort)))

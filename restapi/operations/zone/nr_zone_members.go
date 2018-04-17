@@ -7,8 +7,12 @@ package zone
 
 import (
 	"net/http"
-
+	_"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	middleware "github.com/go-openapi/runtime/middleware"
+	"injbackendapi/models"
+	"fmt"
+	"injbackendapi/var"
 )
 
 // NrZoneMembersHandlerFunc turns a function with the right signature into a zone members handler
@@ -53,8 +57,34 @@ func (o *NrZoneMembers) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := o.Handler.Handle(Params) // actually handle the request
+	var ok ZoneMembersOK
+	var response models.InlineResponse2002
+	var data models.InlineResponse2002Data
+	var list models.InlineResponse2002DataMembers
+	var count int64
+	//var temp []*models.ZoneItem
 
-	o.Context.Respond(rw, r, route.Produces, route, res)
+	db,err := _var.OpenConnection()
+	if err!=nil{
+		fmt.Println(err.Error())
+	}
+	defer db.Close()
+
+	//var zoneList []models.ZoneItem
+	db.Raw("select btk_User.NickName as nickname,btk_User.avatar,btk_ZoneMembers.MemberID as euid from btk_ZoneMembers left join btk_User on btk_ZoneMembers.MemberID = btk_User.UserID").Find(&list)
+	//fmt.Println("temp is",temp[0].Name)
+
+	db.Raw("select ZoneID from btk_Zone").Count(&count)
+	//status
+	data.Members = list
+	data.TotalCount = count
+	response.Data = &data
+	var status models.Response
+	status.UnmarshalBinary([]byte(_var.Response200(200,"ok")))
+	response.Response = &status
+
+	ok.SetPayload(&response)
+
+	o.Context.Respond(rw, r, route.Produces, route, ok)
 
 }

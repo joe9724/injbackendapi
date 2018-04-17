@@ -18,7 +18,7 @@ import (
 type ZoneItem struct {
 
 	// 圈子等级
-	Level int64 `json:"level,omitempty"`
+	Level int64 `json:"level"`
 
 	// 圈子名称
 	// Required: true
@@ -29,11 +29,13 @@ type ZoneItem struct {
 	Pic *string `json:"pic"`
 
 	// 圈子简介
-	Summary string `json:"summary,omitempty"`
+	Summary string `json:"summary"`
 
 	// 圈子唯一标识符
 	// Required: true
 	ZoneID *int64 `json:"zone_id"`
+
+	Status *int64 `json:"status"`
 }
 
 // Validate validates this zone item

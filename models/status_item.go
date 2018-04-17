@@ -53,7 +53,7 @@ type StatusItem struct {
 	Supported bool `json:"supported,omitempty"`
 
 	// 动态内容(包含@的人、话题名称等)
-	Text string `json:"text,omitempty"`
+	Text string `json:"text"`
 
 	// user
 	// Required: true
