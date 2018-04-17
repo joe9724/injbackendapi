@@ -7,8 +7,12 @@ package zone
 
 import (
 	"net/http"
-
+	_"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	middleware "github.com/go-openapi/runtime/middleware"
+	"injbackendapi/models"
+	"fmt"
+	"injbackendapi/var"
 )
 
 // NrZoneShowHandlerFunc turns a function with the right signature into a zone show handler
@@ -53,8 +57,33 @@ func (o *NrZoneShow) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := o.Handler.Handle(Params) // actually handle the request
+	var ok ZoneShowOK
+	var response models.InlineResponse2001
+	var data models.ZomeInfo
+	//var list models.InlineResponse200DataZones
+	//var temp []*models.ZoneItem
 
-	o.Context.Respond(rw, r, route.Produces, route, res)
+	db,err := _var.OpenConnection()
+	if err!=nil{
+		fmt.Println(err.Error())
+	}
+	defer db.Close()
+
+	//var zoneList []models.ZoneItem
+	db.Raw("select Name as name,Brief as brief,Logo as logo,Photo as photo,IsPublic as isPublic,Status as status,Level as level from btk_Zone").First(&data)
+	//fmt.Println("temp is",temp[0].Name)
+	//var count int64
+	//db.Raw("select ZoneID from btk_Zone").Count(&count)
+	//status
+	//data. = list
+	//data.TotalCount = count
+	response.Data = &data
+	var status models.Response
+	status.UnmarshalBinary([]byte(_var.Response200(200,"ok")))
+	response.Response = &status
+
+	ok.SetPayload(&response)
+
+	o.Context.Respond(rw, r, route.Produces, route, ok)
 
 }

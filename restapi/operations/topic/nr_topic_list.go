@@ -7,8 +7,12 @@ package topic
 
 import (
 	"net/http"
-
+	_"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	middleware "github.com/go-openapi/runtime/middleware"
+	"injbackendapi/models"
+	"fmt"
+	"injbackendapi/var"
 )
 
 // NrTopicListHandlerFunc turns a function with the right signature into a topic list handler
@@ -51,8 +55,33 @@ func (o *NrTopicList) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := o.Handler.Handle(Params) // actually handle the request
+	var ok TopicListOK
+	var response models.InlineResponse2005
+	var data models.InlineResponse2005Data
+	var list models.InlineResponse2005DataTopics
+	//var temp []*models.ZoneItem
 
-	o.Context.Respond(rw, r, route.Produces, route, res)
+	db,err := _var.OpenConnection()
+	if err!=nil{
+		fmt.Println(err.Error())
+	}
+	defer db.Close()
+
+	//var zoneList []models.ZoneItem
+	db.Raw("select Name as name from btk_Topic").Find(&list)
+	//fmt.Println("temp is",temp[0].Name)
+	var count int64
+	db.Raw("select TopicID from btk_Topic").Count(&count)
+	//status
+	data.Topics = list
+	data.TotalCount = count
+	response.Data = &data
+	var status models.Response
+	status.UnmarshalBinary([]byte(_var.Response200(200,"ok")))
+	response.Response = &status
+
+	ok.SetPayload(&response)
+
+	o.Context.Respond(rw, r, route.Produces, route, ok)
 
 }

@@ -7,8 +7,12 @@ package comment
 
 import (
 	"net/http"
-
+	_"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	middleware "github.com/go-openapi/runtime/middleware"
+	"injbackendapi/models"
+	"fmt"
+	"injbackendapi/var"
 )
 
 // NrCommentsListHandlerFunc turns a function with the right signature into a comments list handler
@@ -51,8 +55,33 @@ func (o *NrCommentsList) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := o.Handler.Handle(Params) // actually handle the request
+	var ok CommentsListOK
+	var response models.InlineResponse2009
+	var data models.InlineResponse2009Data
+	var list models.InlineResponse2009DataComments
+	//var temp []*models.ZoneItem
 
-	o.Context.Respond(rw, r, route.Produces, route, res)
+	db,err := _var.OpenConnection()
+	if err!=nil{
+		fmt.Println(err.Error())
+	}
+	defer db.Close()
+
+	//var zoneList []models.ZoneItem
+	db.Raw("select Content as content from btk_Comment").Find(&list)
+	//fmt.Println("temp is",temp[0].Name)
+	var count int64
+	db.Raw("select CommentID from btk_Comment").Count(&count)
+	//status
+	data.Comments = list
+	data.TotalCount = count
+	response.Data = &data
+	var status models.Response
+	status.UnmarshalBinary([]byte(_var.Response200(200,"ok")))
+	response.Response = &status
+
+	ok.SetPayload(&response)
+
+	o.Context.Respond(rw, r, route.Produces, route, ok)
 
 }

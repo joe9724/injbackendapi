@@ -18,34 +18,34 @@ import (
 type TopicInfo struct {
 
 	// 话题简介
-	Brief string `json:"brief,omitempty"`
+	Brief string `json:"brief"`
 
 	// 话题创建时间
 	// Required: true
 	CreatedAt *string `json:"created_at"`
 
 	// 粉丝数
-	FollowsCount int64 `json:"follows_count,omitempty"`
+	FollowsCount int64 `json:"follows_count"`
 
 	// 话题Logo路径
-	Logo string `json:"logo,omitempty"`
+	Logo string `json:"logo"`
 
 	// 话题标题
 	// Required: true
 	Name *string `json:"name"`
 
 	// 话题个性图片路径
-	Photo string `json:"photo,omitempty"`
+	Photo string `json:"photo"`
 
 	// 话题内动态个数
-	StatusCount int64 `json:"status_count,omitempty"`
+	StatusCount int64 `json:"status_count"`
 
 	// 话题ID
 	// Required: true
 	Tid *int64 `json:"tid"`
 
 	// 访问次数
-	VisitTimes int64 `json:"visit_times,omitempty"`
+	VisitTimes int64 `json:"visit_times"`
 }
 
 // Validate validates this topic info
