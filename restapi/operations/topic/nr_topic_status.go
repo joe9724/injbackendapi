@@ -73,7 +73,7 @@ func (o *NrTopicStatus) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	db.Raw("SELECT btk_Posts.Content as text FROM `btk_TopicPosts` left join btk_Posts on btk_TopicPosts.PostID=btk_Posts.PostID").Find(&list)
 	//fmt.Println("temp is",temp[0].Name)
 	var count int64
-	db.Raw("select TopicPostID from btk_Posts").Count(&count)
+	db.Raw("select TopicPostID from btk_TopicPosts").Count(&count)
 	//status
 	data.Posts = list
 	data.TotalCount = count
