@@ -1,0 +1,4736 @@
+﻿{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is Public Relation Zone API",
+    "version" : "1.0.0",
+    "title" : "Relation Zone"
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/nanjingyouzi/inj-backend/1.0.0",
+  "tags" : [ {
+    "name" : "Zone",
+    "description" : "圈子模块API接口描述"
+  }, {
+    "name" : "Topic",
+    "description" : "话题模块API接口描述"
+  }, {
+    "name" : "Status",
+    "description" : "动态模块API接口描述"
+  }, {
+    "name" : "Comment",
+    "description" : "评论模块API接口描述"
+  }, {
+    "name" : "User",
+    "description" : "用户模块API接口描述"
+  }, {
+    "name" : "FileUpload",
+    "description" : "文件上传模块"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/zone/recommend" : {
+      "get" : {
+        "tags" : [ "Zone" ],
+        "summary" : "获取推荐圈子(按圈子点击总数排序)",
+        "operationId" : "/zone/recommend",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/list" : {
+      "get" : {
+        "tags" : [ "Zone" ],
+        "summary" : "获取圈子列表(按修改时间倒序排列)",
+        "operationId" : "/zone/list",
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/show" : {
+      "get" : {
+        "tags" : [ "Zone" ],
+        "summary" : "获取圈子详情",
+        "description" : "获取圈子详情(包含圈子成员个数、标签、最新公告)",
+        "operationId" : "/zone/show",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "zone_id",
+          "in" : "query",
+          "description" : "圈子ID",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_1"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/members" : {
+      "get" : {
+        "tags" : [ "Zone" ],
+        "summary" : "获取圈子成员",
+        "description" : "获取圈子成员(0:普通成员 1:管理员 2:圈主)",
+        "operationId" : "/zone/members",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "zone_id",
+          "in" : "query",
+          "description" : "圈子ID",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "action",
+          "in" : "query",
+          "description" : "0是入圈用户 1是收藏用户",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_2"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/status" : {
+      "get" : {
+        "tags" : [ "Zone" ],
+        "summary" : "获取圈子下的动态列表",
+        "description" : "获取圈子下的动态列表(0:新鲜 1:视频 2:精华)",
+        "operationId" : "/zone/status",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "zone_id",
+          "in" : "query",
+          "description" : "圈子ID",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "帖子类型(0:新鲜 1:视频 2:精华)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_3"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/report" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "举报圈子",
+        "description" : "举报圈子操作",
+        "operationId" : "/zone/report",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/create" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "创建圈子",
+        "operationId" : "/zone/create",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_1"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/update" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "修改圈子信息",
+        "description" : "修改圈子信息(圈主/管理员)",
+        "operationId" : "/zone/update",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_2"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/invite" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "邀请好友加入圈子",
+        "description" : "邀请好友加入圈子(圈主/管理员)",
+        "operationId" : "/zone/invite",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_3"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/apply" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "申请加入圈子",
+        "description" : "申请加入圈子操作(非圈子成员)",
+        "operationId" : "/zone/apply",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_4"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/aggree" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "同意加入圈子",
+        "description" : "同意加入圈子操作(圈主或管理员)",
+        "operationId" : "/zone/aggree",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_5"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/refuse" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "拒绝加入圈子",
+        "description" : "拒绝加入圈子操作(圈主或管理员)",
+        "operationId" : "/zone/refuse",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_6"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/quite" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "退出圈子",
+        "description" : "退出圈子(圈子成员或管理员、圈主不可退出)",
+        "operationId" : "/zone/quite",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_7"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/zone/drop" : {
+      "post" : {
+        "tags" : [ "Zone" ],
+        "summary" : "解散圈子",
+        "description" : "解散圈子(圈主)",
+        "operationId" : "/zone/drop",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_8"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/topic/create" : {
+      "post" : {
+        "tags" : [ "Topic" ],
+        "summary" : "创建话题",
+        "description" : "在调用match接口时，系统需要先判断是否存在该话题名称，不存在则先创建一条话题",
+        "operationId" : "/topic/create",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_9"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/topic/list" : {
+      "get" : {
+        "tags" : [ "Topic" ],
+        "summary" : "获取话题列表(按最后一条动态的时间排序)",
+        "operationId" : "/topic/list",
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_5"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/topic/show" : {
+      "get" : {
+        "tags" : [ "Topic" ],
+        "summary" : "获取话题详情",
+        "description" : "获取话题详情(包含动态条数、粉丝数、访问次数等信息)",
+        "operationId" : "/topic/show",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "tid",
+          "in" : "query",
+          "description" : "话题ID",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_6"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/topic/search" : {
+      "get" : {
+        "tags" : [ "Topic" ],
+        "summary" : "搜索话题",
+        "description" : "搜索话题",
+        "operationId" : "/topic/search",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "搜索关键词",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "tid",
+          "in" : "query",
+          "description" : "话题ID",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_5"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/topic/match" : {
+      "get" : {
+        "tags" : [ "Topic" ],
+        "summary" : "根据话题名匹配话题详情",
+        "description" : "根据话题名匹配话题详情(包含动态条数、粉丝数、访问次数等信息)",
+        "operationId" : "/topic/match",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "话题名",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_6"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/topic/status" : {
+      "get" : {
+        "tags" : [ "Topic" ],
+        "summary" : "获取话题下的动态列表",
+        "description" : "获取话题下的动态列表(0:最新  1:精华)",
+        "operationId" : "/topic/status",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "tid",
+          "in" : "query",
+          "description" : "话题ID",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "获取动态的类型(0:最新  1:精华)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_3"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/topic/follow" : {
+      "post" : {
+        "tags" : [ "Topic" ],
+        "summary" : "关注话题",
+        "operationId" : "/topic/follow",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_10"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/topic/unfollow" : {
+      "post" : {
+        "tags" : [ "Topic" ],
+        "summary" : "取消关注话题",
+        "operationId" : "/topic/unfollow",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_11"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/status/timeline" : {
+      "get" : {
+        "tags" : [ "Status" ],
+        "summary" : "获取动态列表",
+        "description" : "获取动态列表(0:热门  1:关注  2:好友  3:推荐  4:周边)",
+        "operationId" : "/status/timeline",
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "获取动态的类型(0:热门  1:关注  2:好友  3:推荐  4:周边)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "latitude",
+          "in" : "query",
+          "description" : "获取周边动态时需要",
+          "required" : false,
+          "type" : "number",
+          "format" : "float"
+        }, {
+          "name" : "longitude",
+          "in" : "query",
+          "description" : "获取周边动态时需要",
+          "required" : false,
+          "type" : "number",
+          "format" : "float"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_3"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/status/tags" : {
+      "get" : {
+        "tags" : [ "Status" ],
+        "summary" : "获取热门搜索关键词",
+        "operationId" : "/status/tags",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_7"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/status/search" : {
+      "get" : {
+        "tags" : [ "Status" ],
+        "summary" : "关键词搜索",
+        "operationId" : "/status/search",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "keyword",
+          "in" : "query",
+          "description" : "关键词(最大不可超过40个字符)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_3"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/status/show" : {
+      "get" : {
+        "tags" : [ "Status" ],
+        "summary" : "获取帖子详情",
+        "operationId" : "/status/show",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pid",
+          "in" : "query",
+          "description" : "动态ID",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_8"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/status/create" : {
+      "post" : {
+        "tags" : [ "Status" ],
+        "summary" : "发布动态",
+        "operationId" : "/status/create",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_12"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/status/retweet" : {
+      "post" : {
+        "tags" : [ "Status" ],
+        "summary" : "转发动态",
+        "operationId" : "/status/retweet",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_13"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/status/like" : {
+      "post" : {
+        "tags" : [ "Status" ],
+        "summary" : "动态点赞",
+        "operationId" : "/status/like",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_14"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/status/unlike" : {
+      "post" : {
+        "tags" : [ "Status" ],
+        "summary" : "取消点赞",
+        "operationId" : "/status/unlike",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_15"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/comments/list" : {
+      "get" : {
+        "tags" : [ "Comment" ],
+        "summary" : "获取评论列表",
+        "operationId" : "/comments/list",
+        "parameters" : [ {
+          "name" : "keyword",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "source_id",
+          "in" : "query",
+          "description" : "主题ID",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "source_type",
+          "in" : "query",
+          "description" : "主题类型(0:活动 1:动态 2:商品)",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_9"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/comments/create" : {
+      "post" : {
+        "tags" : [ "Comment" ],
+        "summary" : "发起评论",
+        "operationId" : "/comments/create",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_16"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/comments/reply" : {
+      "post" : {
+        "tags" : [ "Comment" ],
+        "summary" : "回复评论",
+        "operationId" : "/comments/reply",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_17"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/comments/delete" : {
+      "post" : {
+        "tags" : [ "Comment" ],
+        "summary" : "删除评论",
+        "operationId" : "/comments/delete",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_18"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/zones" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "获取用户加入的圈子",
+        "description" : "获取用户加入的圈子(没有返回空数组)",
+        "operationId" : "/user/zones",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/status" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "获取用户的动态",
+        "operationId" : "/user/status",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_10"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/photos" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "获取用户的相册",
+        "operationId" : "/user/photos",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_11"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/show" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "查看用户基本信息",
+        "operationId" : "/user/show",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "mid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "user_id",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_12"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/friends" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "查看用户的好友",
+        "operationId" : "/user/friends",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "mid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "user_id",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_13"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/follows" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "查看用户关注的人",
+        "operationId" : "/user/follows",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "mid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "user_id",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_13"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/fans" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "查看用户的粉丝",
+        "operationId" : "/user/fans",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "mid",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "user_id",
+          "in" : "query",
+          "description" : "加密后的用户ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "返回结果的页码，默认为1",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "单页返回的记录条数，默认为20",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_13"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/follow" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "关注用户",
+        "operationId" : "/user/follow",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_19"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/unfollow" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "取消关注",
+        "operationId" : "/user/unfollow",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_20"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/deleteFriend" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "删除好友关系",
+        "operationId" : "/user/deleteFriend",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_21"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/applyToFriend" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "申请好友",
+        "operationId" : "/user/applyFriend",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_22"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/aggreeToFriend" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "同意好友申请",
+        "operationId" : "/user/aggreeToFriend",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_23"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/user/refuseToFriend" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "拒绝好友申请",
+        "operationId" : "/user/refuseToFriend",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "以JSON的方式提交数据",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/body_24"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_4"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/file/upload" : {
+      "post" : {
+        "tags" : [ "FileUpload" ],
+        "summary" : "文件上传",
+        "operationId" : "/file/upload",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "euid",
+          "in" : "formData",
+          "description" : "上传者的ID",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "files",
+          "in" : "formData",
+          "description" : "上传的文件数组",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "成功，返回成功信息",
+            "schema" : {
+              "$ref" : "#/definitions/inline_response_200_14"
+            }
+          },
+          "default" : {
+            "description" : "返回错误",
+            "schema" : {
+              "$ref" : "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Response" : {
+      "type" : "object",
+      "required" : [ "code", "message" ],
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "code" : 0,
+        "message" : "message"
+      }
+    },
+    "Error" : {
+      "type" : "object",
+      "required" : [ "msg" ],
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "msg" : {
+          "type" : "string",
+          "description" : "返回结果"
+        }
+      }
+    },
+    "ZoneItem" : {
+      "type" : "object",
+      "required" : [ "name", "pic", "zone_id" ],
+      "properties" : {
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "圈子唯一标识符"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "圈子名称"
+        },
+        "summary" : {
+          "type" : "string",
+          "description" : "圈子简介"
+        },
+        "pic" : {
+          "type" : "string",
+          "description" : "圈子的缩略图"
+        },
+        "level" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "圈子等级"
+        }
+      },
+      "example" : {
+        "summary" : "summary",
+        "zone_id" : 1,
+        "level" : 5,
+        "name" : "name",
+        "pic" : "pic"
+      }
+    },
+    "ZomeInfo" : {
+      "type" : "object",
+      "required" : [ "name", "pic", "zone_id" ],
+      "properties" : {
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "圈子唯一标识符"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "圈子名称"
+        },
+        "summary" : {
+          "type" : "string",
+          "description" : "圈子简介"
+        },
+        "pic" : {
+          "type" : "string",
+          "description" : "圈子的缩略图"
+        },
+        "level" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "圈子等级"
+        },
+        "tag" : {
+          "type" : "string",
+          "description" : "圈子的标签"
+        },
+        "member_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "圈子的成员个数"
+        },
+        "joind" : {
+          "type" : "boolean",
+          "description" : "是否加入该圈子"
+        }
+      },
+      "example" : {
+        "summary" : "summary",
+        "zone_id" : 0,
+        "joind" : true,
+        "level" : 6,
+        "name" : "name",
+        "pic" : "pic",
+        "tag" : "tag",
+        "member_count" : 1
+      }
+    },
+    "TopicItem" : {
+      "type" : "object",
+      "required" : [ "created_at", "name", "tid" ],
+      "properties" : {
+        "tid" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "话题ID"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "话题标题"
+        },
+        "logo" : {
+          "type" : "string",
+          "description" : "话题Logo路径"
+        },
+        "photo" : {
+          "type" : "string",
+          "description" : "话题个性图片路径"
+        },
+        "brief" : {
+          "type" : "string",
+          "description" : "话题简介"
+        },
+        "created_at" : {
+          "type" : "string",
+          "description" : "话题创建时间"
+        }
+      },
+      "example" : {
+        "brief" : "brief",
+        "name" : "name",
+        "logo" : "logo",
+        "photo" : "photo",
+        "created_at" : "created_at",
+        "tid" : 6
+      }
+    },
+    "TopicInfo" : {
+      "type" : "object",
+      "required" : [ "created_at", "name", "tid" ],
+      "properties" : {
+        "tid" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "话题ID"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "话题标题"
+        },
+        "logo" : {
+          "type" : "string",
+          "description" : "话题Logo路径"
+        },
+        "photo" : {
+          "type" : "string",
+          "description" : "话题个性图片路径"
+        },
+        "brief" : {
+          "type" : "string",
+          "description" : "话题简介"
+        },
+        "created_at" : {
+          "type" : "string",
+          "description" : "话题创建时间"
+        },
+        "status_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "话题内动态个数"
+        },
+        "follows_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "粉丝数"
+        },
+        "visit_times" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "访问次数"
+        }
+      },
+      "example" : {
+        "brief" : "brief",
+        "visit_times" : 5,
+        "name" : "name",
+        "follows_count" : 1,
+        "logo" : "logo",
+        "photo" : "photo",
+        "created_at" : "created_at",
+        "status_count" : 6,
+        "tid" : 0
+      }
+    },
+    "StatusItem" : {
+      "type" : "object",
+      "required" : [ "created_at", "pid", "user" ],
+      "properties" : {
+        "created_at" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "动态创建日期"
+        },
+        "pid" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "动态ID"
+        },
+        "text" : {
+          "type" : "string",
+          "description" : "动态内容(包含@的人、话题名称等)"
+        },
+        "pics" : {
+          "type" : "array",
+          "description" : "图片地址数组, 列表中最大6张",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "geo" : {
+          "$ref" : "#/definitions/GeoInfo"
+        },
+        "user" : {
+          "$ref" : "#/definitions/UserItem"
+        },
+        "ait_users" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AitUser"
+          }
+        },
+        "reposts_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "转发数"
+        },
+        "comments_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "评论数"
+        },
+        "support_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "点赞数"
+        },
+        "supported" : {
+          "type" : "boolean",
+          "description" : "是否点赞"
+        },
+        "belongs_forum" : {
+          "$ref" : "#/definitions/ZoneItem"
+        },
+        "retweeted_status" : {
+          "$ref" : "#/definitions/RetweetedStatus"
+        }
+      },
+      "example" : {
+        "created_at" : 6,
+        "pid" : 1,
+        "ait_users" : [ {
+          "euid" : "euid",
+          "nickname" : "nickname"
+        }, {
+          "euid" : "euid",
+          "nickname" : "nickname"
+        } ],
+        "retweeted_status" : {
+          "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+          "retweeter_euid" : "retweeter_euid",
+          "retweet_text" : "retweet_text",
+          "created_at" : 3,
+          "ait_users" : [ {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          }, {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          } ],
+          "retweeter_name" : "retweeter_name"
+        },
+        "geo" : {
+          "address" : "address",
+          "latitude" : 5.962134,
+          "longitude" : 5.637377
+        },
+        "comments_count" : 7,
+        "text" : "text",
+        "reposts_count" : 2,
+        "support_count" : 9,
+        "belongs_forum" : {
+          "summary" : "summary",
+          "zone_id" : 1,
+          "level" : 5,
+          "name" : "name",
+          "pic" : "pic"
+        },
+        "pics" : [ "pics", "pics" ],
+        "user" : {
+          "euid" : "euid",
+          "gender" : 6,
+          "nickname" : "nickname",
+          "avatar" : "avatar",
+          "position" : 1,
+          "followed" : true
+        },
+        "supported" : true
+      }
+    },
+    "GeoInfo" : {
+      "type" : "object",
+      "required" : [ "latitude", "longitude" ],
+      "properties" : {
+        "latitude" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "经度坐标"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "经度坐标"
+        },
+        "address" : {
+          "type" : "string",
+          "description" : "地址"
+        }
+      },
+      "description" : "地理信息",
+      "example" : {
+        "address" : "address",
+        "latitude" : 5.962134,
+        "longitude" : 5.637377
+      }
+    },
+    "RetweetedStatus" : {
+      "type" : "object",
+      "required" : [ "retweet_text", "retweeter_euid", "retweeter_name" ],
+      "properties" : {
+        "retweeter_euid" : {
+          "type" : "string",
+          "description" : "帖子发起人ID"
+        },
+        "retweeter_name" : {
+          "type" : "string",
+          "description" : "帖子发起人昵称"
+        },
+        "retweet_text" : {
+          "type" : "string",
+          "description" : "帖子内容"
+        },
+        "retweet_pics" : {
+          "type" : "array",
+          "description" : "图片地址数组, 列表中最大6张",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "ait_users" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AitUser"
+          }
+        },
+        "created_at" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "动态创建日期"
+        }
+      },
+      "example" : {
+        "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+        "retweeter_euid" : "retweeter_euid",
+        "retweet_text" : "retweet_text",
+        "created_at" : 3,
+        "ait_users" : [ {
+          "euid" : "euid",
+          "nickname" : "nickname"
+        }, {
+          "euid" : "euid",
+          "nickname" : "nickname"
+        } ],
+        "retweeter_name" : "retweeter_name"
+      }
+    },
+    "AitUser" : {
+      "type" : "object",
+      "required" : [ "euid", "nickname" ],
+      "properties" : {
+        "euid" : {
+          "type" : "string",
+          "description" : "加密后的用户ID"
+        },
+        "nickname" : {
+          "type" : "string",
+          "description" : "用户昵称"
+        }
+      },
+      "example" : {
+        "euid" : "euid",
+        "nickname" : "nickname"
+      }
+    },
+    "CommentItem" : {
+      "type" : "object",
+      "required" : [ "content", "created_at", "id", "user" ],
+      "properties" : {
+        "created_at" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "评论时间"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "评论编号"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "评论内容"
+        },
+        "source" : {
+          "type" : "string",
+          "description" : "评论来源"
+        },
+        "user" : {
+          "$ref" : "#/definitions/UserBase"
+        },
+        "reply_comment" : {
+          "$ref" : "#/definitions/ReplyComment"
+        }
+      },
+      "description" : "评论Model定义",
+      "example" : {
+        "created_at" : 6,
+        "id" : 1,
+        "source" : "source",
+        "user" : {
+          "birthday" : "birthday",
+          "euid" : "euid",
+          "gender" : 5,
+          "level" : 5,
+          "nickname" : "nickname",
+          "remark" : "remark",
+          "avatar" : "avatar"
+        },
+        "reply_comment" : {
+          "created_at" : 7,
+          "id" : 2,
+          "user" : {
+            "birthday" : "birthday",
+            "euid" : "euid",
+            "gender" : 5,
+            "level" : 5,
+            "nickname" : "nickname",
+            "remark" : "remark",
+            "avatar" : "avatar"
+          },
+          "content" : "content"
+        },
+        "content" : "content"
+      }
+    },
+    "ReplyComment" : {
+      "type" : "object",
+      "required" : [ "content", "created_at", "id", "user" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "被回复的评论编号"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "被回复的评论内容"
+        },
+        "created_at" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "评论时间"
+        },
+        "user" : {
+          "$ref" : "#/definitions/UserBase"
+        }
+      },
+      "description" : "评论来源评论，当本评论属于对另一评论的回复时返回此字段",
+      "example" : {
+        "created_at" : 7,
+        "id" : 2,
+        "user" : {
+          "birthday" : "birthday",
+          "euid" : "euid",
+          "gender" : 5,
+          "level" : 5,
+          "nickname" : "nickname",
+          "remark" : "remark",
+          "avatar" : "avatar"
+        },
+        "content" : "content"
+      }
+    },
+    "UserBase" : {
+      "type" : "object",
+      "required" : [ "avatar", "euid", "nickname" ],
+      "properties" : {
+        "euid" : {
+          "type" : "string",
+          "description" : "加密后的用户ID"
+        },
+        "nickname" : {
+          "type" : "string",
+          "description" : "用户昵称"
+        },
+        "avatar" : {
+          "type" : "string",
+          "description" : "用户头像"
+        },
+        "gender" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "用户性别(0:保密 1:男 2:女)"
+        },
+        "birthday" : {
+          "type" : "string",
+          "description" : "出生日期(yyyy-MM-dd HH:mm:ss)"
+        },
+        "level" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "用户等级"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "个人说明"
+        }
+      },
+      "description" : "用户基本信息",
+      "example" : {
+        "birthday" : "birthday",
+        "euid" : "euid",
+        "gender" : 5,
+        "level" : 5,
+        "nickname" : "nickname",
+        "remark" : "remark",
+        "avatar" : "avatar"
+      }
+    },
+    "UserItem" : {
+      "type" : "object",
+      "required" : [ "avatar", "euid", "nickname" ],
+      "properties" : {
+        "euid" : {
+          "type" : "string",
+          "description" : "加密后的用户ID"
+        },
+        "nickname" : {
+          "type" : "string",
+          "description" : "用户昵称"
+        },
+        "avatar" : {
+          "type" : "string",
+          "description" : "用户头像"
+        },
+        "gender" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "用户性别(0:保密 1:男 2:女)"
+        },
+        "position" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "用户所在圈子的职位(0:普通成员 1:管理员 2:圈主)"
+        },
+        "followed" : {
+          "type" : "boolean",
+          "description" : "是否已关注"
+        }
+      },
+      "description" : "用户在圈子内的信息",
+      "example" : {
+        "euid" : "euid",
+        "gender" : 6,
+        "nickname" : "nickname",
+        "avatar" : "avatar",
+        "position" : 1,
+        "followed" : true
+      }
+    },
+    "Profile" : {
+      "type" : "object",
+      "required" : [ "avatar", "euid", "nickname" ],
+      "properties" : {
+        "euid" : {
+          "type" : "string",
+          "description" : "加密后的用户ID"
+        },
+        "nickname" : {
+          "type" : "string",
+          "description" : "用户昵称"
+        },
+        "avatar" : {
+          "type" : "string",
+          "description" : "用户头像"
+        },
+        "gender" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "用户性别(0:保密 1:男 2:女)"
+        },
+        "birthday" : {
+          "type" : "string",
+          "description" : "出生日期(yyyy-MM-dd HH:mm:ss)"
+        },
+        "level" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "用户等级"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "个人说明"
+        },
+        "stature" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "身高"
+        },
+        "weight" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "体重"
+        },
+        "shape" : {
+          "type" : "string",
+          "description" : "体型"
+        },
+        "blood" : {
+          "type" : "string",
+          "description" : "血型"
+        },
+        "degree" : {
+          "type" : "string",
+          "description" : "最高学历"
+        },
+        "school" : {
+          "type" : "string",
+          "description" : "毕业学校"
+        },
+        "salary" : {
+          "type" : "string",
+          "description" : "目前月薪"
+        },
+        "interest" : {
+          "type" : "string",
+          "description" : "兴趣爱好"
+        },
+        "marriage" : {
+          "type" : "string",
+          "description" : "婚姻状况"
+        },
+        "profession" : {
+          "type" : "string",
+          "description" : "职业信息"
+        },
+        "companyName" : {
+          "type" : "string",
+          "description" : "公司名称"
+        },
+        "home_area" : {
+          "type" : "string",
+          "description" : "家乡"
+        },
+        "now_area" : {
+          "type" : "string",
+          "description" : "现居城市"
+        }
+      },
+      "description" : "用户个人资料",
+      "example" : {
+        "birthday" : "birthday",
+        "profession" : "profession",
+        "euid" : "euid",
+        "gender" : 0,
+        "shape" : "shape",
+        "level" : 6,
+        "companyName" : "companyName",
+        "degree" : "degree",
+        "weight" : 5,
+        "remark" : "remark",
+        "avatar" : "avatar",
+        "salary" : "salary",
+        "blood" : "blood",
+        "school" : "school",
+        "interest" : "interest",
+        "home_area" : "home_area",
+        "marriage" : "marriage",
+        "nickname" : "nickname",
+        "stature" : 1,
+        "now_area" : "now_area"
+      }
+    },
+    "AlbumItem" : {
+      "type" : "object",
+      "required" : [ "date", "photos" ],
+      "properties" : {
+        "date" : {
+          "type" : "string",
+          "description" : "返回的日期(yyyy/MM/dd格式)"
+        },
+        "photos" : {
+          "type" : "array",
+          "description" : "返回图片数组",
+          "items" : {
+            "$ref" : "#/definitions/FileItem"
+          }
+        }
+      },
+      "example" : {
+        "date" : "date",
+        "photos" : [ {
+          "width" : 1.4658129,
+          "id" : 6,
+          "href" : "href",
+          "type" : "type",
+          "height" : 5.962134
+        }, {
+          "width" : 1.4658129,
+          "id" : 6,
+          "href" : "href",
+          "type" : "type",
+          "height" : 5.962134
+        } ]
+      }
+    },
+    "FileItem" : {
+      "type" : "object",
+      "required" : [ "href", "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "文件ID"
+        },
+        "href" : {
+          "type" : "string",
+          "description" : "文件地址"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "文件类型(0:图片  1:视频  2:其他文件)"
+        },
+        "width" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "宽度"
+        },
+        "height" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "高度"
+        }
+      },
+      "description" : "返回的文件信息",
+      "example" : {
+        "width" : 1.4658129,
+        "id" : 6,
+        "href" : "href",
+        "type" : "type",
+        "height" : 5.962134
+      }
+    },
+    "inline_response_200_data" : {
+      "properties" : {
+        "total_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "返回总数量"
+        },
+        "zones" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ZoneItem"
+          }
+        }
+      },
+      "example" : {
+        "total_count" : 6,
+        "zones" : [ {
+          "summary" : "summary",
+          "zone_id" : 1,
+          "level" : 5,
+          "name" : "name",
+          "pic" : "pic"
+        }, {
+          "summary" : "summary",
+          "zone_id" : 1,
+          "level" : 5,
+          "name" : "name",
+          "pic" : "pic"
+        } ]
+      }
+    },
+    "inline_response_200" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/inline_response_200_data"
+        }
+      },
+      "example" : {
+        "data" : {
+          "total_count" : 6,
+          "zones" : [ {
+            "summary" : "summary",
+            "zone_id" : 1,
+            "level" : 5,
+            "name" : "name",
+            "pic" : "pic"
+          }, {
+            "summary" : "summary",
+            "zone_id" : 1,
+            "level" : 5,
+            "name" : "name",
+            "pic" : "pic"
+          } ]
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "inline_response_200_1" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/ZomeInfo"
+        }
+      },
+      "example" : {
+        "data" : {
+          "summary" : "summary",
+          "zone_id" : 0,
+          "joind" : true,
+          "level" : 6,
+          "name" : "name",
+          "pic" : "pic",
+          "tag" : "tag",
+          "member_count" : 1
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "inline_response_200_2_data" : {
+      "properties" : {
+        "total_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "返回总数量"
+        },
+        "members" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/UserItem"
+          }
+        }
+      },
+      "example" : {
+        "total_count" : 0,
+        "members" : [ {
+          "euid" : "euid",
+          "gender" : 6,
+          "nickname" : "nickname",
+          "avatar" : "avatar",
+          "position" : 1,
+          "followed" : true
+        }, {
+          "euid" : "euid",
+          "gender" : 6,
+          "nickname" : "nickname",
+          "avatar" : "avatar",
+          "position" : 1,
+          "followed" : true
+        } ]
+      }
+    },
+    "inline_response_200_2" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/inline_response_200_2_data"
+        }
+      },
+      "example" : {
+        "data" : {
+          "total_count" : 0,
+          "members" : [ {
+            "euid" : "euid",
+            "gender" : 6,
+            "nickname" : "nickname",
+            "avatar" : "avatar",
+            "position" : 1,
+            "followed" : true
+          }, {
+            "euid" : "euid",
+            "gender" : 6,
+            "nickname" : "nickname",
+            "avatar" : "avatar",
+            "position" : 1,
+            "followed" : true
+          } ]
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "inline_response_200_3_data" : {
+      "properties" : {
+        "total_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "返回总数量"
+        },
+        "posts" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/StatusItem"
+          }
+        }
+      },
+      "example" : {
+        "total_count" : 0,
+        "posts" : [ {
+          "created_at" : 6,
+          "pid" : 1,
+          "ait_users" : [ {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          }, {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          } ],
+          "retweeted_status" : {
+            "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+            "retweeter_euid" : "retweeter_euid",
+            "retweet_text" : "retweet_text",
+            "created_at" : 3,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeter_name" : "retweeter_name"
+          },
+          "geo" : {
+            "address" : "address",
+            "latitude" : 5.962134,
+            "longitude" : 5.637377
+          },
+          "comments_count" : 7,
+          "text" : "text",
+          "reposts_count" : 2,
+          "support_count" : 9,
+          "belongs_forum" : {
+            "summary" : "summary",
+            "zone_id" : 1,
+            "level" : 5,
+            "name" : "name",
+            "pic" : "pic"
+          },
+          "pics" : [ "pics", "pics" ],
+          "user" : {
+            "euid" : "euid",
+            "gender" : 6,
+            "nickname" : "nickname",
+            "avatar" : "avatar",
+            "position" : 1,
+            "followed" : true
+          },
+          "supported" : true
+        }, {
+          "created_at" : 6,
+          "pid" : 1,
+          "ait_users" : [ {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          }, {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          } ],
+          "retweeted_status" : {
+            "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+            "retweeter_euid" : "retweeter_euid",
+            "retweet_text" : "retweet_text",
+            "created_at" : 3,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeter_name" : "retweeter_name"
+          },
+          "geo" : {
+            "address" : "address",
+            "latitude" : 5.962134,
+            "longitude" : 5.637377
+          },
+          "comments_count" : 7,
+          "text" : "text",
+          "reposts_count" : 2,
+          "support_count" : 9,
+          "belongs_forum" : {
+            "summary" : "summary",
+            "zone_id" : 1,
+            "level" : 5,
+            "name" : "name",
+            "pic" : "pic"
+          },
+          "pics" : [ "pics", "pics" ],
+          "user" : {
+            "euid" : "euid",
+            "gender" : 6,
+            "nickname" : "nickname",
+            "avatar" : "avatar",
+            "position" : 1,
+            "followed" : true
+          },
+          "supported" : true
+        } ]
+      }
+    },
+    "inline_response_200_3" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/inline_response_200_3_data"
+        }
+      },
+      "example" : {
+        "data" : {
+          "total_count" : 0,
+          "posts" : [ {
+            "created_at" : 6,
+            "pid" : 1,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeted_status" : {
+              "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+              "retweeter_euid" : "retweeter_euid",
+              "retweet_text" : "retweet_text",
+              "created_at" : 3,
+              "ait_users" : [ {
+                "euid" : "euid",
+                "nickname" : "nickname"
+              }, {
+                "euid" : "euid",
+                "nickname" : "nickname"
+              } ],
+              "retweeter_name" : "retweeter_name"
+            },
+            "geo" : {
+              "address" : "address",
+              "latitude" : 5.962134,
+              "longitude" : 5.637377
+            },
+            "comments_count" : 7,
+            "text" : "text",
+            "reposts_count" : 2,
+            "support_count" : 9,
+            "belongs_forum" : {
+              "summary" : "summary",
+              "zone_id" : 1,
+              "level" : 5,
+              "name" : "name",
+              "pic" : "pic"
+            },
+            "pics" : [ "pics", "pics" ],
+            "user" : {
+              "euid" : "euid",
+              "gender" : 6,
+              "nickname" : "nickname",
+              "avatar" : "avatar",
+              "position" : 1,
+              "followed" : true
+            },
+            "supported" : true
+          }, {
+            "created_at" : 6,
+            "pid" : 1,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeted_status" : {
+              "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+              "retweeter_euid" : "retweeter_euid",
+              "retweet_text" : "retweet_text",
+              "created_at" : 3,
+              "ait_users" : [ {
+                "euid" : "euid",
+                "nickname" : "nickname"
+              }, {
+                "euid" : "euid",
+                "nickname" : "nickname"
+              } ],
+              "retweeter_name" : "retweeter_name"
+            },
+            "geo" : {
+              "address" : "address",
+              "latitude" : 5.962134,
+              "longitude" : 5.637377
+            },
+            "comments_count" : 7,
+            "text" : "text",
+            "reposts_count" : 2,
+            "support_count" : 9,
+            "belongs_forum" : {
+              "summary" : "summary",
+              "zone_id" : 1,
+              "level" : 5,
+              "name" : "name",
+              "pic" : "pic"
+            },
+            "pics" : [ "pics", "pics" ],
+            "user" : {
+              "euid" : "euid",
+              "gender" : 6,
+              "nickname" : "nickname",
+              "avatar" : "avatar",
+              "position" : 1,
+              "followed" : true
+            },
+            "supported" : true
+          } ]
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "body" : {
+      "required" : [ "euid", "report_type", "zone_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "举报人的ID"
+        },
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "被举报的圈子ID"
+        },
+        "report_type" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "举报类型"
+        }
+      }
+    },
+    "inline_response_200_4" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        }
+      },
+      "example" : {
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "body_1" : {
+      "required" : [ "euid", "logo_id", "name" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "创建人ID"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "圈子名称"
+        },
+        "logo_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "上传的Logo图片ID"
+        },
+        "pic_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "上传的个性图片ID"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "圈子简介"
+        },
+        "category_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "分类ID"
+        },
+        "user_ids" : {
+          "type" : "string",
+          "description" : "创建圈子时邀请的用户, 可以传入多个用户id, 以\",\"分隔"
+        }
+      }
+    },
+    "body_2" : {
+      "required" : [ "euid", "logo_id", "name", "zone_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "需要修改的圈子ID"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "创建人ID"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "圈子名称"
+        },
+        "logo_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "上传的Logo图片ID"
+        },
+        "pic_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "上传的个性图片ID"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "圈子简介"
+        },
+        "category_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "分类ID"
+        }
+      }
+    },
+    "body_3" : {
+      "required" : [ "euid", "user_ids", "zone_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "邀请人的ID"
+        },
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "加入圈子的ID"
+        },
+        "user_ids" : {
+          "type" : "string",
+          "description" : "被邀请的用户ID，可以传入多个用户id, 以\",\"分隔"
+        }
+      }
+    },
+    "body_4" : {
+      "required" : [ "euid", "zone_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "申请加入圈子的ID"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "申请备注"
+        }
+      }
+    },
+    "body_5" : {
+      "required" : [ "euid", "zone_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "申请加入圈子的ID"
+        }
+      }
+    },
+    "body_6" : {
+      "required" : [ "euid", "zone_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "申请加入圈子的ID"
+        },
+        "reason" : {
+          "type" : "string",
+          "description" : "拒绝理由"
+        }
+      }
+    },
+    "body_7" : {
+      "required" : [ "euid", "zone_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "申请加入圈子的ID"
+        },
+        "reason" : {
+          "type" : "string",
+          "description" : "退出理由"
+        }
+      }
+    },
+    "body_8" : {
+      "required" : [ "euid", "zone_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "zone_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "申请加入圈子的ID"
+        },
+        "reason" : {
+          "type" : "string",
+          "description" : "解散理由"
+        }
+      }
+    },
+    "body_9" : {
+      "required" : [ "euid", "name" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "创建人的ID"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "创建话题的名称"
+        }
+      }
+    },
+    "inline_response_200_5_data" : {
+      "properties" : {
+        "total_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "返回总数量"
+        },
+        "topics" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TopicItem"
+          }
+        }
+      },
+      "example" : {
+        "total_count" : 0,
+        "topics" : [ {
+          "brief" : "brief",
+          "name" : "name",
+          "logo" : "logo",
+          "photo" : "photo",
+          "created_at" : "created_at",
+          "tid" : 6
+        }, {
+          "brief" : "brief",
+          "name" : "name",
+          "logo" : "logo",
+          "photo" : "photo",
+          "created_at" : "created_at",
+          "tid" : 6
+        } ]
+      }
+    },
+    "inline_response_200_5" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/inline_response_200_5_data"
+        }
+      },
+      "example" : {
+        "data" : {
+          "total_count" : 0,
+          "topics" : [ {
+            "brief" : "brief",
+            "name" : "name",
+            "logo" : "logo",
+            "photo" : "photo",
+            "created_at" : "created_at",
+            "tid" : 6
+          }, {
+            "brief" : "brief",
+            "name" : "name",
+            "logo" : "logo",
+            "photo" : "photo",
+            "created_at" : "created_at",
+            "tid" : 6
+          } ]
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "inline_response_200_6" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/TopicInfo"
+        }
+      },
+      "example" : {
+        "data" : {
+          "brief" : "brief",
+          "visit_times" : 5,
+          "name" : "name",
+          "follows_count" : 1,
+          "logo" : "logo",
+          "photo" : "photo",
+          "created_at" : "created_at",
+          "status_count" : 6,
+          "tid" : 0
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "body_10" : {
+      "required" : [ "euid", "tid" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "关注人的ID"
+        },
+        "tid" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "话题ID"
+        }
+      }
+    },
+    "body_11" : {
+      "required" : [ "euid", "tid" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "操作人的ID"
+        },
+        "tid" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "话题ID"
+        }
+      }
+    },
+    "inline_response_200_7" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "tags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "example" : {
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        },
+        "tags" : [ "tags", "tags" ]
+      }
+    },
+    "inline_response_200_8" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "post" : {
+          "$ref" : "#/definitions/StatusItem"
+        }
+      },
+      "example" : {
+        "post" : {
+          "created_at" : 6,
+          "pid" : 1,
+          "ait_users" : [ {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          }, {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          } ],
+          "retweeted_status" : {
+            "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+            "retweeter_euid" : "retweeter_euid",
+            "retweet_text" : "retweet_text",
+            "created_at" : 3,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeter_name" : "retweeter_name"
+          },
+          "geo" : {
+            "address" : "address",
+            "latitude" : 5.962134,
+            "longitude" : 5.637377
+          },
+          "comments_count" : 7,
+          "text" : "text",
+          "reposts_count" : 2,
+          "support_count" : 9,
+          "belongs_forum" : {
+            "summary" : "summary",
+            "zone_id" : 1,
+            "level" : 5,
+            "name" : "name",
+            "pic" : "pic"
+          },
+          "pics" : [ "pics", "pics" ],
+          "user" : {
+            "euid" : "euid",
+            "gender" : 6,
+            "nickname" : "nickname",
+            "avatar" : "avatar",
+            "position" : 1,
+            "followed" : true
+          },
+          "supported" : true
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "body_12" : {
+      "required" : [ "euid" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "发帖人ID"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "动态内容"
+        },
+        "pic_ids" : {
+          "type" : "array",
+          "description" : "上传的图片(包含视频)ID数组",
+          "items" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "维度坐标"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "经度坐标"
+        },
+        "address" : {
+          "type" : "string",
+          "description" : "详细地址"
+        },
+        "ait_users" : {
+          "type" : "string",
+          "description" : "Ait的用户ID，可以为多个，中间以\",\"分隔"
+        }
+      }
+    },
+    "body_13" : {
+      "required" : [ "euid" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "发帖人ID"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "动态内容"
+        },
+        "pic_ids" : {
+          "type" : "array",
+          "description" : "上传的图片(包含视频)ID数组",
+          "items" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "维度坐标"
+        },
+        "longitude" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "经度坐标"
+        },
+        "address" : {
+          "type" : "string",
+          "description" : "详细地址"
+        },
+        "ait_users" : {
+          "type" : "string",
+          "description" : "Ait的用户ID，可以为多个，中间以\",\"分隔"
+        },
+        "retweet_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "被转发的动态ID"
+        }
+      }
+    },
+    "body_14" : {
+      "required" : [ "euid" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "用户ID"
+        },
+        "status_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "动态ID"
+        }
+      }
+    },
+    "body_15" : {
+      "required" : [ "euid" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "用户ID"
+        },
+        "status_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "动态ID"
+        }
+      }
+    },
+    "inline_response_200_9_data" : {
+      "properties" : {
+        "total_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "返回总数量"
+        },
+        "comments" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/CommentItem"
+          }
+        }
+      },
+      "example" : {
+        "comments" : [ {
+          "created_at" : 6,
+          "id" : 1,
+          "source" : "source",
+          "user" : {
+            "birthday" : "birthday",
+            "euid" : "euid",
+            "gender" : 5,
+            "level" : 5,
+            "nickname" : "nickname",
+            "remark" : "remark",
+            "avatar" : "avatar"
+          },
+          "reply_comment" : {
+            "created_at" : 7,
+            "id" : 2,
+            "user" : {
+              "birthday" : "birthday",
+              "euid" : "euid",
+              "gender" : 5,
+              "level" : 5,
+              "nickname" : "nickname",
+              "remark" : "remark",
+              "avatar" : "avatar"
+            },
+            "content" : "content"
+          },
+          "content" : "content"
+        }, {
+          "created_at" : 6,
+          "id" : 1,
+          "source" : "source",
+          "user" : {
+            "birthday" : "birthday",
+            "euid" : "euid",
+            "gender" : 5,
+            "level" : 5,
+            "nickname" : "nickname",
+            "remark" : "remark",
+            "avatar" : "avatar"
+          },
+          "reply_comment" : {
+            "created_at" : 7,
+            "id" : 2,
+            "user" : {
+              "birthday" : "birthday",
+              "euid" : "euid",
+              "gender" : 5,
+              "level" : 5,
+              "nickname" : "nickname",
+              "remark" : "remark",
+              "avatar" : "avatar"
+            },
+            "content" : "content"
+          },
+          "content" : "content"
+        } ],
+        "total_count" : 0
+      }
+    },
+    "inline_response_200_9" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/inline_response_200_9_data"
+        }
+      },
+      "example" : {
+        "data" : {
+          "comments" : [ {
+            "created_at" : 6,
+            "id" : 1,
+            "source" : "source",
+            "user" : {
+              "birthday" : "birthday",
+              "euid" : "euid",
+              "gender" : 5,
+              "level" : 5,
+              "nickname" : "nickname",
+              "remark" : "remark",
+              "avatar" : "avatar"
+            },
+            "reply_comment" : {
+              "created_at" : 7,
+              "id" : 2,
+              "user" : {
+                "birthday" : "birthday",
+                "euid" : "euid",
+                "gender" : 5,
+                "level" : 5,
+                "nickname" : "nickname",
+                "remark" : "remark",
+                "avatar" : "avatar"
+              },
+              "content" : "content"
+            },
+            "content" : "content"
+          }, {
+            "created_at" : 6,
+            "id" : 1,
+            "source" : "source",
+            "user" : {
+              "birthday" : "birthday",
+              "euid" : "euid",
+              "gender" : 5,
+              "level" : 5,
+              "nickname" : "nickname",
+              "remark" : "remark",
+              "avatar" : "avatar"
+            },
+            "reply_comment" : {
+              "created_at" : 7,
+              "id" : 2,
+              "user" : {
+                "birthday" : "birthday",
+                "euid" : "euid",
+                "gender" : 5,
+                "level" : 5,
+                "nickname" : "nickname",
+                "remark" : "remark",
+                "avatar" : "avatar"
+              },
+              "content" : "content"
+            },
+            "content" : "content"
+          } ],
+          "total_count" : 0
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "body_16" : {
+      "required" : [ "content", "euid", "source_id", "source_type" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "评论人的ID"
+        },
+        "source_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "评论主题ID"
+        },
+        "source_type" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "评论主题类型"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "评论内容，必须做URLencode，内容不超过140个汉字。"
+        }
+      }
+    },
+    "body_17" : {
+      "required" : [ "cid", "content", "euid", "source_id", "source_type" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "评论人的ID"
+        },
+        "source_id" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "需要评论的主题ID"
+        },
+        "source_type" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "需要评论主题类型"
+        },
+        "content" : {
+          "type" : "string",
+          "description" : "回复评论内容，必须做URLencode，内容不超过140个汉字"
+        },
+        "cid" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "需要回复的评论ID"
+        }
+      }
+    },
+    "body_18" : {
+      "required" : [ "cid", "euid" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "euid" : {
+          "type" : "string",
+          "description" : "操作人的ID"
+        },
+        "cid" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "需要删除的评论ID"
+        }
+      }
+    },
+    "inline_response_200_10_data" : {
+      "properties" : {
+        "total_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "返回总数量"
+        },
+        "status" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/StatusItem"
+          }
+        }
+      },
+      "example" : {
+        "total_count" : 0,
+        "status" : [ {
+          "created_at" : 6,
+          "pid" : 1,
+          "ait_users" : [ {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          }, {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          } ],
+          "retweeted_status" : {
+            "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+            "retweeter_euid" : "retweeter_euid",
+            "retweet_text" : "retweet_text",
+            "created_at" : 3,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeter_name" : "retweeter_name"
+          },
+          "geo" : {
+            "address" : "address",
+            "latitude" : 5.962134,
+            "longitude" : 5.637377
+          },
+          "comments_count" : 7,
+          "text" : "text",
+          "reposts_count" : 2,
+          "support_count" : 9,
+          "belongs_forum" : {
+            "summary" : "summary",
+            "zone_id" : 1,
+            "level" : 5,
+            "name" : "name",
+            "pic" : "pic"
+          },
+          "pics" : [ "pics", "pics" ],
+          "user" : {
+            "euid" : "euid",
+            "gender" : 6,
+            "nickname" : "nickname",
+            "avatar" : "avatar",
+            "position" : 1,
+            "followed" : true
+          },
+          "supported" : true
+        }, {
+          "created_at" : 6,
+          "pid" : 1,
+          "ait_users" : [ {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          }, {
+            "euid" : "euid",
+            "nickname" : "nickname"
+          } ],
+          "retweeted_status" : {
+            "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+            "retweeter_euid" : "retweeter_euid",
+            "retweet_text" : "retweet_text",
+            "created_at" : 3,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeter_name" : "retweeter_name"
+          },
+          "geo" : {
+            "address" : "address",
+            "latitude" : 5.962134,
+            "longitude" : 5.637377
+          },
+          "comments_count" : 7,
+          "text" : "text",
+          "reposts_count" : 2,
+          "support_count" : 9,
+          "belongs_forum" : {
+            "summary" : "summary",
+            "zone_id" : 1,
+            "level" : 5,
+            "name" : "name",
+            "pic" : "pic"
+          },
+          "pics" : [ "pics", "pics" ],
+          "user" : {
+            "euid" : "euid",
+            "gender" : 6,
+            "nickname" : "nickname",
+            "avatar" : "avatar",
+            "position" : 1,
+            "followed" : true
+          },
+          "supported" : true
+        } ]
+      }
+    },
+    "inline_response_200_10" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/inline_response_200_10_data"
+        }
+      },
+      "example" : {
+        "data" : {
+          "total_count" : 0,
+          "status" : [ {
+            "created_at" : 6,
+            "pid" : 1,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeted_status" : {
+              "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+              "retweeter_euid" : "retweeter_euid",
+              "retweet_text" : "retweet_text",
+              "created_at" : 3,
+              "ait_users" : [ {
+                "euid" : "euid",
+                "nickname" : "nickname"
+              }, {
+                "euid" : "euid",
+                "nickname" : "nickname"
+              } ],
+              "retweeter_name" : "retweeter_name"
+            },
+            "geo" : {
+              "address" : "address",
+              "latitude" : 5.962134,
+              "longitude" : 5.637377
+            },
+            "comments_count" : 7,
+            "text" : "text",
+            "reposts_count" : 2,
+            "support_count" : 9,
+            "belongs_forum" : {
+              "summary" : "summary",
+              "zone_id" : 1,
+              "level" : 5,
+              "name" : "name",
+              "pic" : "pic"
+            },
+            "pics" : [ "pics", "pics" ],
+            "user" : {
+              "euid" : "euid",
+              "gender" : 6,
+              "nickname" : "nickname",
+              "avatar" : "avatar",
+              "position" : 1,
+              "followed" : true
+            },
+            "supported" : true
+          }, {
+            "created_at" : 6,
+            "pid" : 1,
+            "ait_users" : [ {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            }, {
+              "euid" : "euid",
+              "nickname" : "nickname"
+            } ],
+            "retweeted_status" : {
+              "retweet_pics" : [ "retweet_pics", "retweet_pics" ],
+              "retweeter_euid" : "retweeter_euid",
+              "retweet_text" : "retweet_text",
+              "created_at" : 3,
+              "ait_users" : [ {
+                "euid" : "euid",
+                "nickname" : "nickname"
+              }, {
+                "euid" : "euid",
+                "nickname" : "nickname"
+              } ],
+              "retweeter_name" : "retweeter_name"
+            },
+            "geo" : {
+              "address" : "address",
+              "latitude" : 5.962134,
+              "longitude" : 5.637377
+            },
+            "comments_count" : 7,
+            "text" : "text",
+            "reposts_count" : 2,
+            "support_count" : 9,
+            "belongs_forum" : {
+              "summary" : "summary",
+              "zone_id" : 1,
+              "level" : 5,
+              "name" : "name",
+              "pic" : "pic"
+            },
+            "pics" : [ "pics", "pics" ],
+            "user" : {
+              "euid" : "euid",
+              "gender" : 6,
+              "nickname" : "nickname",
+              "avatar" : "avatar",
+              "position" : 1,
+              "followed" : true
+            },
+            "supported" : true
+          } ]
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "inline_response_200_11_data" : {
+      "properties" : {
+        "total_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "返回总数量"
+        },
+        "albums" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AlbumItem"
+          }
+        }
+      },
+      "example" : {
+        "albums" : [ {
+          "date" : "date",
+          "photos" : [ {
+            "width" : 1.4658129,
+            "id" : 6,
+            "href" : "href",
+            "type" : "type",
+            "height" : 5.962134
+          }, {
+            "width" : 1.4658129,
+            "id" : 6,
+            "href" : "href",
+            "type" : "type",
+            "height" : 5.962134
+          } ]
+        }, {
+          "date" : "date",
+          "photos" : [ {
+            "width" : 1.4658129,
+            "id" : 6,
+            "href" : "href",
+            "type" : "type",
+            "height" : 5.962134
+          }, {
+            "width" : 1.4658129,
+            "id" : 6,
+            "href" : "href",
+            "type" : "type",
+            "height" : 5.962134
+          } ]
+        } ],
+        "total_count" : 0
+      }
+    },
+    "inline_response_200_11" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/inline_response_200_11_data"
+        }
+      },
+      "example" : {
+        "data" : {
+          "albums" : [ {
+            "date" : "date",
+            "photos" : [ {
+              "width" : 1.4658129,
+              "id" : 6,
+              "href" : "href",
+              "type" : "type",
+              "height" : 5.962134
+            }, {
+              "width" : 1.4658129,
+              "id" : 6,
+              "href" : "href",
+              "type" : "type",
+              "height" : 5.962134
+            } ]
+          }, {
+            "date" : "date",
+            "photos" : [ {
+              "width" : 1.4658129,
+              "id" : 6,
+              "href" : "href",
+              "type" : "type",
+              "height" : 5.962134
+            }, {
+              "width" : 1.4658129,
+              "id" : 6,
+              "href" : "href",
+              "type" : "type",
+              "height" : 5.962134
+            } ]
+          } ],
+          "total_count" : 0
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "inline_response_200_12" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/Profile"
+        }
+      },
+      "example" : {
+        "data" : {
+          "birthday" : "birthday",
+          "profession" : "profession",
+          "euid" : "euid",
+          "gender" : 0,
+          "shape" : "shape",
+          "level" : 6,
+          "companyName" : "companyName",
+          "degree" : "degree",
+          "weight" : 5,
+          "remark" : "remark",
+          "avatar" : "avatar",
+          "salary" : "salary",
+          "blood" : "blood",
+          "school" : "school",
+          "interest" : "interest",
+          "home_area" : "home_area",
+          "marriage" : "marriage",
+          "nickname" : "nickname",
+          "stature" : 1,
+          "now_area" : "now_area"
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "inline_response_200_13_data" : {
+      "properties" : {
+        "total_count" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "返回总数量"
+        },
+        "albums" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/UserBase"
+          }
+        }
+      },
+      "example" : {
+        "albums" : [ {
+          "birthday" : "birthday",
+          "euid" : "euid",
+          "gender" : 5,
+          "level" : 5,
+          "nickname" : "nickname",
+          "remark" : "remark",
+          "avatar" : "avatar"
+        }, {
+          "birthday" : "birthday",
+          "euid" : "euid",
+          "gender" : 5,
+          "level" : 5,
+          "nickname" : "nickname",
+          "remark" : "remark",
+          "avatar" : "avatar"
+        } ],
+        "total_count" : 0
+      }
+    },
+    "inline_response_200_13" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "data" : {
+          "$ref" : "#/definitions/inline_response_200_13_data"
+        }
+      },
+      "example" : {
+        "data" : {
+          "albums" : [ {
+            "birthday" : "birthday",
+            "euid" : "euid",
+            "gender" : 5,
+            "level" : 5,
+            "nickname" : "nickname",
+            "remark" : "remark",
+            "avatar" : "avatar"
+          }, {
+            "birthday" : "birthday",
+            "euid" : "euid",
+            "gender" : 5,
+            "level" : 5,
+            "nickname" : "nickname",
+            "remark" : "remark",
+            "avatar" : "avatar"
+          } ],
+          "total_count" : 0
+        },
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        }
+      }
+    },
+    "body_19" : {
+      "required" : [ "mid", "user_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "mid" : {
+          "type" : "string",
+          "description" : "关注人的ID"
+        },
+        "user_id" : {
+          "type" : "string",
+          "description" : "被关注人的ID"
+        }
+      }
+    },
+    "body_20" : {
+      "required" : [ "mid", "user_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "mid" : {
+          "type" : "string",
+          "description" : "关注人的ID"
+        },
+        "user_id" : {
+          "type" : "string",
+          "description" : "被关注人的ID"
+        }
+      }
+    },
+    "body_21" : {
+      "required" : [ "mid", "user_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "mid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "user_id" : {
+          "type" : "string",
+          "description" : "被删除用户的ID"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "删除备注"
+        }
+      }
+    },
+    "body_22" : {
+      "required" : [ "mid", "user_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "mid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "user_id" : {
+          "type" : "string",
+          "description" : "被申请用户的ID"
+        },
+        "remark" : {
+          "type" : "string",
+          "description" : "申请备注"
+        }
+      }
+    },
+    "body_23" : {
+      "required" : [ "mid", "user_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "mid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "user_id" : {
+          "type" : "string",
+          "description" : "被申请用户的ID"
+        }
+      }
+    },
+    "body_24" : {
+      "required" : [ "mid", "user_id" ],
+      "properties" : {
+        "oid" : {
+          "type" : "string"
+        },
+        "token" : {
+          "type" : "string"
+        },
+        "mid" : {
+          "type" : "string",
+          "description" : "申请人的ID"
+        },
+        "user_id" : {
+          "type" : "string",
+          "description" : "被申请用户的ID"
+        },
+        "reason" : {
+          "type" : "string",
+          "description" : "拒绝理由"
+        }
+      }
+    },
+    "inline_response_200_14" : {
+      "properties" : {
+        "response" : {
+          "$ref" : "#/definitions/Response"
+        },
+        "files" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/FileItem"
+          }
+        }
+      },
+      "example" : {
+        "response" : {
+          "code" : 0,
+          "message" : "message"
+        },
+        "files" : [ {
+          "width" : 1.4658129,
+          "id" : 6,
+          "href" : "href",
+          "type" : "type",
+          "height" : 5.962134
+        }, {
+          "width" : 1.4658129,
+          "id" : 6,
+          "href" : "href",
+          "type" : "type",
+          "height" : 5.962134
+        } ]
+      }
+    }
+  }
+}
