@@ -18,13 +18,13 @@ import (
 type ZomeInfo struct {
 
 	// 是否加入该圈子
-	Joind bool `json:"joind,omitempty"`
+	Joind bool `json:"joind"`
 
 	// 圈子等级
-	Level int64 `json:"level,omitempty"`
+	Level int64 `json:"level"`
 
 	// 圈子的成员个数
-	MemberCount int64 `json:"member_count,omitempty"`
+	MemberCount int64 `json:"member_count,"`
 
 	// 圈子名称
 	// Required: true
@@ -35,10 +35,10 @@ type ZomeInfo struct {
 	Pic *string `json:"pic"`
 
 	// 圈子简介
-	Summary string `json:"summary,omitempty"`
+	Summary string `json:"summary"`
 
 	// 圈子的标签
-	Tag string `json:"tag,omitempty"`
+	Tag string `json:"tag"`
 
 	// 圈子唯一标识符
 	// Required: true

@@ -7,8 +7,12 @@ package zone
 
 import (
 	"net/http"
-
+	_"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	middleware "github.com/go-openapi/runtime/middleware"
+	"injbackendapi/models"
+	"fmt"
+	"injbackendapi/var"
 )
 
 // NrZoneCreateHandlerFunc turns a function with the right signature into a zone create handler
@@ -51,8 +55,24 @@ func (o *NrZoneCreate) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := o.Handler.Handle(Params) // actually handle the request
+	var ok ZoneCreateOK
+	var response models.InlineResponse2004
 
-	o.Context.Respond(rw, r, route.Produces, route, res)
+	db,err := _var.OpenConnection()
+	if err!=nil{
+		fmt.Println(err.Error())
+	}
+	defer db.Close()
+
+	//var zoneList []models.ZoneItem
+	db.Exec("insert into btk_Zone(Name,Logo,Photo,Brief,CategoryID)values(?,?,?,?,?)",Params.Body.Name,Params.Body.LogoID,Params.Body.PicID,Params.Body.Remark,Params.Body.CategoryID)
+
+	var status models.Response
+	status.UnmarshalBinary([]byte(_var.Response200(200,"ok")))
+	response.Response = &status
+
+	ok.SetPayload(&response)
+
+	o.Context.Respond(rw, r, route.Produces, route, ok)
 
 }

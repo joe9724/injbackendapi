@@ -21,6 +21,8 @@ type InlineResponse20014 struct {
 
 	// response
 	Response *Response `json:"response,omitempty"`
+
+	Url string `json:"url"`
 }
 
 // Validate validates this inline response 200 14

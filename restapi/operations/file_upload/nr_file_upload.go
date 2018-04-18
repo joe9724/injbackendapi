@@ -7,8 +7,16 @@ package file_upload
 
 import (
 	"net/http"
-
-	middleware "github.com/go-openapi/runtime/middleware"
+	"io/ioutil"
+	"github.com/go-openapi/runtime/middleware"
+	"fmt"
+	_ "os"
+	"runtime"
+	"time"
+	_"strings"
+	"injbackendapi/models"
+	"injbackendapi/var"
+	"strconv"
 )
 
 // NrFileUploadHandlerFunc turns a function with the right signature into a file upload handler
@@ -51,8 +59,72 @@ func (o *NrFileUpload) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res := o.Handler.Handle(Params) // actually handle the request
+	var ok FileUploadOK
+	var response models.InlineResponse20014
+	var status models.Response
 
-	o.Context.Respond(rw, r, route.Produces, route, res)
+	var msg string
+	var code int64
+
+	var filename string
+	filename = strconv.FormatInt((time.Now().UnixNano()), 10)
+
+	//fmt.Println("filename is", *Params.Filename)
+
+	//fmt.Println("Param.type is", Params.Type)
+
+	//var contentType string
+	//var file []byte
+	code = 200
+	msg = "ok"
+
+	db,err := _var.OpenConnection()
+	if err!=nil{
+		fmt.Println(err.Error())
+	}
+	defer db.Close()
+
+	if (Params.Files != nil) {
+		file, err := ioutil.ReadAll(Params.Files)
+		if err != nil {
+			fmt.Println("err upload:", err.Error())
+		}
+		fmt.Println("1")
+		//save
+		//var lower string
+		//lower = strings.ToLower(contentType)
+		//fmt.Println("lower is", lower)
+		//fmt.Println("file.size is", len(file))
+		if (true) {
+			if (runtime.GOOS == "windows") {
+				err1 := ioutil.WriteFile(filename+".jpg", file, 0644)
+				if err1 != nil {
+					fmt.Println(err1.Error())
+				}
+			} else {
+				err1 := ioutil.WriteFile("/root/go/src/resource/image/icon/"+filename+".jpg", file, 0644)
+				if err1 != nil {
+					fmt.Println(err1.Error())
+				}
+			}
+			response.Url = _var.GetResourceDomain("icon") + filename + ".jpg"
+			fmt.Println("response.Url is",response.Url)
+			code = 200
+			msg = "ok"
+		} else {
+			fmt.Println("2")
+			code = 401
+			msg = "image format need jpg or png"
+		}
+	}else{
+		fmt.Println("files is nil")
+	}
+
+	status.UnmarshalBinary([]byte(_var.Response200(code, msg)))
+	response.Response = &status
+
+	ok.SetPayload(&response)
+	o.Context.Respond(rw, r, route.Produces, route, ok)
+
 
 }

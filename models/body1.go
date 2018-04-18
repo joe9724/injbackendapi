@@ -26,7 +26,7 @@ type Body1 struct {
 
 	// 上传的Logo图片ID
 	// Required: true
-	LogoID *int64 `json:"logo_id"`
+	LogoID *string `json:"logo_id"`
 
 	// 圈子名称
 	// Required: true
@@ -36,7 +36,7 @@ type Body1 struct {
 	Oid string `json:"oid,omitempty"`
 
 	// 上传的个性图片ID
-	PicID int64 `json:"pic_id,omitempty"`
+	PicID string `json:"pic_id,omitempty"`
 
 	// 圈子简介
 	Remark string `json:"remark,omitempty"`
