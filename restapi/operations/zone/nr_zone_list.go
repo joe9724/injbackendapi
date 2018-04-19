@@ -68,7 +68,7 @@ func (o *NrZoneList) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	//var zoneList []models.ZoneItem
-	db.Raw("select ZoneID as zone_id,Level as level,Name as name,Status as status from btk_Zone order by ZoneID desc").Find(&list)
+	db.Raw("select ZoneID as zone_id,Level as level,Name as name,Status as status,Logo as logo,Photo as photo from btk_Zone order by ZoneID desc").Find(&list)
 	//fmt.Println("temp is",temp[0].Name)
 	var count int64
 	db.Raw("select ZoneID from btk_Zone").Count(&count)

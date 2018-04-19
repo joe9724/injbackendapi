@@ -36,6 +36,10 @@ type ZoneItem struct {
 	ZoneID *int64 `json:"zone_id"`
 
 	Status *int64 `json:"status"`
+
+	Logo string `json:"logo"`
+
+	Photo string `json:"photo"`
 }
 
 // Validate validates this zone item

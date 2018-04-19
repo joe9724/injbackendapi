@@ -58,6 +58,8 @@ type StatusItem struct {
 	// user
 	// Required: true
 	User *UserItem `json:"user"`
+
+	NickName *string `json:"nickName"`
 }
 
 // Validate validates this status item

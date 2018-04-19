@@ -29,14 +29,20 @@ type UserItem struct {
 	Followed bool `json:"followed,omitempty"`
 
 	// 用户性别(0:保密 1:男 2:女)
-	Gender int64 `json:"gender,omitempty"`
+	Gender int64 `json:"gender"`
 
 	// 用户昵称
 	// Required: true
 	Nickname *string `json:"nickname"`
 
 	// 用户所在圈子的职位(0:普通成员 1:管理员 2:圈主)
-	Position int64 `json:"position,omitempty"`
+	Position int64 `json:"position"`
+
+	RegisterAt *string `json:"registerAt"`
+
+	LoginAt *string `json:"loginAt"`
+
+	Level *int64 `json:level`
 }
 
 // Validate validates this user item
