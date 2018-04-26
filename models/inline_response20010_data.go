@@ -21,6 +21,8 @@ type InlineResponse20010Data struct {
 
 	// 返回总数量
 	TotalCount int64 `json:"total_count,omitempty"`
+
+	TimeLines []TimeLine `json:"timelines"`
 }
 
 // Validate validates this inline response 200 10 data
