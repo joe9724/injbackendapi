@@ -71,7 +71,7 @@ func (o *NrZoneMembers) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	//var zoneList []models.ZoneItem
-	db.Raw("select btk_User.NickName as nickname,btk_User.avatar,btk_User.UserID as euid,btk_User.RegisterAt as registerAt,btk_User.LoginAt as loginAt,Gender as gender,Level as level from btk_User").Find(&list)
+	db.Raw("select btk_User.nick_name as nickname,btk_User.avatar,btk_User.id as euid,btk_User.register_at as registerAt,btk_User.login_at as loginAt,gender as gender,level as level from btk_User").Find(&list)
 	//fmt.Println("temp is",temp[0].Name)
 
 	db.Raw("select ZoneID from btk_Zone").Count(&count)
